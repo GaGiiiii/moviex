@@ -1,0 +1,2 @@
+1. Dodaj u query mysqlerror u cheatsheet.
+2. Dodaj engleski na cheat sheet.
