@@ -1,6 +1,6 @@
 <?php
 
-include 'includes/clean.php';
+include 'includes/functions.php';
 include 'classes/User.php';
 
 if(User::isLoggedIn()){
@@ -14,21 +14,17 @@ if(isset($_POST['register'])){
   $username = clean($_POST['username']);
 
   $errors = array();
-  $fail = false;
 
   if(empty($email)){
     $errors['email'] = '<p class="mb-0"><label class="text-danger font-weight-bold text-uppercase mb-0">Please Enter Email.</label></p>';
-    $fail = true;
   }else{
       if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
           $errors['email'] = '<p class="mb-0"><label class="text-danger font-weight-bold text-uppercase mb-0">Invalid Email Format.</label></p>';
-          $fail = true;
       }
   }
 
   if(empty($password)){
     $errors['password'] = '<p><label class="text-danger font-weight-bold text-uppercase">Please Enter Passowrd.</label></p>';
-    $fail = true;
   }else{
     if($password != $password2){
       $errors['password_confirm'] = '<p><label class="text-danger font-weight-bold text-uppercase">Passwords Do Not Match.</label></p>';
@@ -37,12 +33,10 @@ if(isset($_POST['register'])){
 
   if(empty($password2)){
     $errors['password2'] = '<p><label class="text-danger font-weight-bold text-uppercase">Please Confirm Password.</label></p>';
-    $fail = true;
   }
 
   if(empty($username)){
     $errors['username'] = '<p><label class="text-danger font-weight-bold text-uppercase">Please Enter Email.</label></p>';
-    $fail = true;
   }
 
   if(count($errors) == 0){
@@ -52,19 +46,20 @@ if(isset($_POST['register'])){
       "username" => $username,
     );
 
-    if(User::register($data)){
-      $_SESSION['register_success_message'] = "<div class='container-fluid'>
-                                        <div class='row'>
-                                            <div class='col-md-10 col-sm-10 offset-sm-1 offset-md-1 p-0 mt-5'>
-                                                <div class='alert alert-dismissible alert-success'>
-                                                    <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                                                    <strong>Successfully Registerd.</strong>.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
-
+    if(User::takenEmail($email)){
+      $errors['taken_email'] = '<div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      E-mail already in use.
+    </div>';
+    }else if(User::takenUsername($username)){
+      $errors['taken_username'] = '<div class="alert alert-dismissible alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Username already in use.
+    </div>';
+    }else if(User::register($data)){
+      $_SESSION['register_success_message'] = "Successfully Registerd";
       header("Location: index");
+
       exit;
     }
 
@@ -80,6 +75,9 @@ if(isset($_POST['register'])){
       <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-8">
           <h1 class="mt-5">REGISTER</h1>
+
+          <?php echo $errors['taken_email'] ?? ""; ?>
+          <?php echo $errors['taken_username'] ?? ""; ?>
 
           <form method="POST" class="mb-5">
             <fieldset>

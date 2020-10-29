@@ -25,7 +25,7 @@
   
     <!-- NAVBAR -->
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="index">MOVIEX</a>
+      <a class="navbar-brand" href="<?php echo SITE_URL; ?>">MOVIEX</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -33,7 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item <?php if($currentPage == '/index.php') echo 'active'; ?>">
-            <a class="nav-link" href="index">Početna <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="<?php echo SITE_URL; ?>">Početna <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item <?php if($currentPage == '/repertoar.php') echo 'active'; ?>">
                 <a class="nav-link" href="repertoar.php">Repertoar</a>
@@ -41,19 +41,19 @@
           <li class="nav-item <?php if($currentPage == '/uskoro.php') echo 'active'; ?>">
                 <a class="nav-link" href="uskoro.php">Uskoro</a>
           </li>
-          <!-- <?php //if(User::ulogovan() && $_SESSION['user']['isAdmin']) { ?>
+          <?php if(User::isLoggedIn() && $_SESSION['user']['is_admin']) { ?>
             <li class="nav-item <?php if($currentPage == '/karte.php') echo 'active'; ?>">
                   <a class="nav-link" href="karte.php">Karte</a>
             </li>
-          <?php //} ?> -->
+          <?php } ?> 
         </ul>
         <ul class="navbar-nav">
         <?php if(User::isLoggedIn()){ ?>
-            <li class="nav-item <?php //if($currentPage == '/admin.php') echo 'active'; ?>">
-                <a class="nav-link" href="<?php //if($_SESSION['korisnik']['isAdmin']) echo 'admin.php'; else echo '#'; ?>">Ulogovani kao: <strong><?php echo $_SESSION['user']['username']; ?><?php //if($_SESSION['korisnik']['isAdmin']) echo " (admin)"; ?></strong></a>
+            <li class="nav-item <?php if($currentPage == '/admin.php') echo 'active'; ?>">
+                <a class="nav-link" href="<?php if($_SESSION['user']['is_admin']) echo SITE_URL . 'admin'; else echo '#'; ?>">Ulogovani kao: <strong><?php echo $_SESSION['user']['username']; ?><?php if($_SESSION['user']['is_admin']) echo " (admin)"; ?></strong></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo SITE_URL; ?>logout">Odjavi se</a>
+                <a class="nav-link" href="<?php echo SITE_URL; ?>logout">Logout</a>
             </li>
         <?php }else{ ?>
           <li class="nav-item <?php if($currentPage == '/register.php') echo 'active'; ?>">
