@@ -1,6 +1,6 @@
 <?php
 
-include 'includes/clean.php';
+include 'includes/functions.php';
 include 'classes/User.php';
 
 if(User::isLoggedIn()){
@@ -29,18 +29,9 @@ if(isset($_POST['login'])){
     );
 
     if(User::login($data)){
-      $_SESSION['login_success_message'] = "<div class='container-fluid'>
-                                        <div class='row'>
-                                            <div class='col-md-10 col-sm-10 offset-sm-1 offset-md-1 p-0 mt-5'>
-                                                <div class='alert alert-dismissible alert-success'>
-                                                    <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                                                    <strong>Logged In Successfully</strong>.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
-
+      $_SESSION['login_success_message'] = "Logged In Successfully";
       header("Location: index");
+
       exit;
     }else{
       $errors['wrong_combination'] = '<div class="alert alert-dismissible alert-danger">

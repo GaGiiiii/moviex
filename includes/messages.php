@@ -1,13 +1,9 @@
 <?php 
 
-  if(isset($_SESSION['register_success_message'])){
-      echo $_SESSION['register_success_message'];
-      unset($_SESSION['register_success_message']);
-  }
+  include_once 'includes/functions.php'; // From index.php relative
 
-  if(isset($_SESSION['login_success_message'])){
-    echo $_SESSION['login_success_message'];
-    unset($_SESSION['login_success_message']);
-  }
+  printFlashMessage("register_success_message");
+  printFlashMessage("login_success_message");
+  printFlashMessage("logout_success_message");
   
 ?>

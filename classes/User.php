@@ -10,9 +10,10 @@
           $query = "INSERT INTO user (email, password, username) VALUES ('$data->email', '$data->password', '$data->username')";
           $result = mysqli_query(Database::getInstance()->getConnection(), $query) or die(mysqli_error(Database::getInstance()->getConnection()));
 
+          $data->id = mysqli_insert_id(Database::getInstance()->getConnection());
           
           if($result){ // Ukoliko je query uspesan pravimo sesiju i vracamo true
-              self::createSession(mysqli_insert_id(Database::getInstance()->getConnection()), $data->email, $data->password);
+              self::createSession($data);
 
               return true;
           }
@@ -20,8 +21,8 @@
           return false;
       }
 
-      public static function zauzetEmail($email){
-          $query = "SELECT email FROM Korisnik WHERE email = '$email'";
+      public static function takenEmail($email){
+          $query = "SELECT email FROM user WHERE email = '$email'";
           $result = mysqli_query(Database::getInstance()->getConnection(), $query);
           $korisnik = mysqli_fetch_array($result);
 
@@ -32,8 +33,8 @@
           return false;
       }
 
-      public static function zauzetoIme($ime){
-          $query = "SELECT ime FROM Korisnik WHERE ime = '$ime'";
+      public static function takenUsername($username){
+          $query = "SELECT username FROM user WHERE username = '$username'";
           $result = mysqli_query(Database::getInstance()->getConnection(), $query);
           $korisnik = mysqli_fetch_array($result);
 
@@ -47,13 +48,13 @@
       public static function login($data){
           $data = (object) $data;
           $data->password = md5(md5($data->password));
-          $query = "SELECT id, email, username FROM user WHERE username = '$data->username' AND password = '$data->password'";
+          $query = "SELECT id, email, username, is_admin FROM user WHERE username = '$data->username' AND password = '$data->password'";
           $result = mysqli_query(Database::getInstance()->getConnection(), $query);
 
-          $user = mysqli_fetch_array($result);
+          $user = (object) mysqli_fetch_array($result);
 
           if($user){
-              self::createSession($user['id'], $user['email'], $user['username']);
+              self::createSession($user);
 
               return true;
           }
@@ -61,18 +62,20 @@
           return false;
       }
 
-      public static function createSession($id, $email, $username){
+      public static function createSession($user){
           $_SESSION['user'] = [
-              'id' => $id,
-              'email' => $email,
-              'username' => $username,
+              'id' => $user->id,
+              'email' => $user->email,
+              'username' => $user->username,
+              'is_admin' => $user->is_admin,
           ];
       }
 
       public static function logout(){
           // Gasimo i unistavamo sesiju nakon logout
-          session_unset();
-          session_destroy();
+        //   session_unset();
+        //   session_destroy();
+        unset($_SESSION['user']);
       }
 
       public static function isLoggedIn(){
