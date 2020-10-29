@@ -33,19 +33,8 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item <?php if($currentPage == '/index.php') echo 'active'; ?>">
-            <a class="nav-link" href="<?php echo SITE_URL; ?>">Početna <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item <?php if($currentPage == '/repertoar.php') echo 'active'; ?>">
-                <a class="nav-link" href="repertoar.php">Repertoar</a>
-          </li>
-          <li class="nav-item <?php if($currentPage == '/uskoro.php') echo 'active'; ?>">
-                <a class="nav-link" href="uskoro.php">Uskoro</a>
-          </li>
-          <?php if(User::isLoggedIn() && $_SESSION['user']['is_admin']) { ?>
-            <li class="nav-item <?php if($currentPage == '/karte.php') echo 'active'; ?>">
-                  <a class="nav-link" href="karte.php">Karte</a>
-            </li>
-          <?php } ?> 
+            <a class="nav-link" href="<?php echo SITE_URL; ?>">HOME <span class="sr-only">(current)</span></a>
+          </li> 
         </ul>
         <ul class="navbar-nav">
         <?php if(User::isLoggedIn()){ ?>

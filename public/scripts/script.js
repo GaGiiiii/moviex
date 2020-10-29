@@ -39,3 +39,25 @@ setInterval(() => {
       logo.style.color = "#fff";
   }
 }, 1000);
+
+// ADMIN
+
+
+let cardsAdmin = document.querySelectorAll('.card-admin');
+let invisible = document.querySelectorAll('.invis');
+
+cardsAdmin.forEach(card => {
+    card.addEventListener('mouseover', (event) => {
+        let index = event.currentTarget.getAttribute("data-index");
+        invisible[index].classList.remove("invis");
+    });
+
+    card.addEventListener('mouseout', (event) => {
+        let index = event.currentTarget.getAttribute("data-index");
+        invisible[index].classList.add("invis");
+    });
+
+    card.addEventListener('click', (event) => {
+        console.log("click");
+    });
+});

@@ -1,3 +1,11 @@
+<?php 
+    include_once 'classes/Movie.php';
+
+    $movies = Movie::getAll();
+    shuffle($movies);
+
+ ?>
+
 <?php include 'includes/header.php' ?>
 <?php include 'includes/owlcarousel.php' ?>
 <?php include 'includes/messages.php' ?>

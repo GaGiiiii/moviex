@@ -1,12 +1,11 @@
  <!-- OWL CAROSEL -->
  <section id="banner-area">
       <div class="owl-carousel owl-theme">
+            <?php foreach($movies as $movie): ?>
               <div class="item">
-                  <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
+                  <img src="<?php echo $movie['img'] ?? ""; ?>" alt="Banner1">
               </div>
-              <div class="item">
-                  <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
-              </div>
+            <?php endforeach; ?>
       </div>
   </section>
   <!-- OWL CAROSEL -->

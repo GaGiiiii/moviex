@@ -155,15 +155,15 @@ body{
 
 /* MODAL */
 
-.modal{
+.movie-modal .modal{
   padding: 0 !important;
 }
 
-.modal iframe{
+.movie-modal .modal iframe{
   height: 550px;
 }
 
-.modal-dialog {
+.movie-modal .modal-dialog {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -172,13 +172,13 @@ body{
   min-height: 100%;
 }
 
-.modal-content {
+.movie-modal .modal-content {
   height: auto;
   min-height: 100%;
   border-radius: 0;
 }
 
-.modal .close{
+.movie-modal .modal .close{
   font-size: 6rem;
   margin-right: 2rem !important;
 }
@@ -199,9 +199,81 @@ body{
   cursor: pointer;
 }
 
-.modal .close:focus{
+.movie-modal .modal .close:focus{
   border: none;
   background-color: #fff;
   color: #000;
   outline: none;
 }
+
+/* ADMIN */
+
+
+
+/* ********** ADMIN ********** */
+
+.card-admin{
+  box-shadow: 0px 1px 3px grey;
+  border: 1px solid #ddd;
+  /* padding: .5rem .4rem; */
+  width: 70%;
+  margin: 0 auto 2rem auto;
+  position: relative;
+  border: 3px solid #ddd;
+}
+
+.card-admin:hover{
+  cursor: pointer;
+}
+
+.card-admin h1{
+  font-weight: bold;
+  padding: 1.5rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.card-admin img {
+  height: 100%;
+  width: 100%;
+  transition: transform .3s ease;
+}
+
+.card img:hover{
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.invisible-custom{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.8;
+}
+
+.invisible-custom h1{
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  top: 35%;
+  position: relative;
+}
+
+.invis{
+  display: none;
+}
+
+#addMo .error-p .error{
+  color: rgb(184, 0, 0) !important;
+}
+
+.hhover-link:hover{
+  text-decoration: none;
+}
+
+.add-movie-btn:hover{
+  border: 1px solid black;
+  background-color: #fff;
+  color: #000;
+} 

@@ -17,10 +17,12 @@
         <div class="container-fluid">
           <div class="row">
 
+            <?php foreach($movies as $movie) : ?>
+
             <div class="col-md-4">
               <div class="item text-center border p-3">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
-                    <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
+                    <img src="<?php echo $movie['img'] ?? ""; ?>" alt="Banner1">
+                    <h3 class="text-center movie-title mt-3"><?php echo $movie['title'] ?? "Title not found"; ?></h3>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -30,44 +32,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="item text-center border p-3">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
-                    <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-
-                </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="item text-center border p-3">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
-                    <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-
-                </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="item text-center border p-3">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
-                    <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="far fa-star"></i>
-
-                </div>
-            </div>
+            <?php endforeach; ?>
 
           </div>
         </div>
