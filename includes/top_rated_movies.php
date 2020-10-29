@@ -5,7 +5,7 @@
         <hr>
         <div class="owl-carousel owl-theme mt-5">
                 <div class="item mr-4 text-center">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
+                    <img type="button" data-toggle="modal" data-target="#exampleModal" src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
                     <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -18,7 +18,7 @@
                     <p class="text-left mb-0">Actors: </p> -->
                 </div>
                 <div class="item mr-4 text-center">
-                    <img src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
+                    <img type="button" data-toggle="modal" data-target="#exampleModal" src="https://wallpaperaccess.com/full/329583.jpg" alt="Banner1">
                     <h3 class="text-center movie-title mt-3">Avengers: End Game</h3>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>

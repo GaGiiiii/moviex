@@ -4,4 +4,5 @@
 <?php include 'includes/top_rated_movies.php' ?>
 <?php include 'includes/movies.php' ?>
 <?php include 'includes/newest_movies.php' ?>
+<?php include 'includes/movie_modal.php' ?>
 <?php include 'includes/footer.php' ?>

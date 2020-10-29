@@ -1,7 +1,7 @@
 <!-- SPECIAL PRICE -->
 <secion id="movies">
     <div class="container mt-5 p-0">
-      <h1>MOVIES</h1>
+      <h1 class="ml-2">MOVIES</h1>
       <hr>
       <div class="button-group text-right">
         <button class="btn sort-btn">Price</button>
