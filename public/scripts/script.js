@@ -8,6 +8,24 @@ $("#banner-area .owl-carousel").owlCarousel({
   smartSpeed: 2000
 });
 
+// TOP SALE OWL CAROUSEL
+$("#top-rated-movies .owl-carousel").owlCarousel({
+  loop: true,
+  nav: true,
+  dots: false,
+  responsive: {
+      0: {
+          items: 1
+      },
+      600: {
+          items: 3
+      },
+      1000: {
+          items: 5
+      }
+  }
+});
+
 // ANIMATE LOGO
 
 let logo = document.querySelector('a.navbar-brand');
