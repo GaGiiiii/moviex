@@ -36,3 +36,6 @@ REGISTER.PHP
 
 SORT.PHP, SEARCH.PHP, RATE.php
 - Logika vezana za sortiranje filmova, pretragu filmova kao i njihovo ocenjivanje
+
+INCLUDES:
+ - U folderu includes nalaze se parcijalni delovi sajta radi bolje strukture i preglednosti
