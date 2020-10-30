@@ -4,6 +4,8 @@
     $movies = Movie::getAll();
     shuffle($movies);
 
+    $moviesSortedByDate = Movie::sortByDate();
+
  ?>
 
 <?php include 'includes/header.php' ?>
