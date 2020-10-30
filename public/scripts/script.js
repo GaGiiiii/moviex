@@ -65,6 +65,7 @@ cardsAdmin.forEach(card => {
 // SORT
 
 let sortButtons = document.querySelectorAll(".sort-btn");
+let searchInput = document.querySelector(".search-input");
 
 sortButtons.forEach((sortButton) => {
   sortButton.addEventListener('click', (event) => {
@@ -99,4 +100,37 @@ sortButtons.forEach((sortButton) => {
       }
     });
   });
+});
+
+searchInput.addEventListener('keyup', (event) => {
+  let searchText = event.target.value;
+
+  $.ajax({
+    url: 'search.php',
+    type: 'POST',
+    data: {
+      searchText,
+    },
+    success: (movies) => {
+      let output = "";
+      movies = JSON.parse(movies);
+      console.log(movies)
+
+      movies.forEach((movie) => {
+        output += `<div class="col-md-4">
+        <div class="item text-center border p-3">
+          <img src="${movie.img}" alt="Banner1" data-toggle="modal" data-target="#movie-modal${movie.id}">
+          <h3 class="text-center movie-title mt-3">${movie.title}</h3>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+      </div>`;
+      });
+
+      document.querySelector(".movies-div").innerHTML = output;
+    }
+  })
 });

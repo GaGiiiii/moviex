@@ -8,7 +8,6 @@
       <button class="btn sort-btn" data-sort-type="length">Length</button>
       <form class="form-inline my-2 my-lg-0 d-inline-block">
         <input class="form-control mr-sm-2 search-input" type="text" placeholder="Search">
-        <button class="btn btn-outline-secondary my-2 my-sm-0 search-btn" type="submit">Search</button>
       </form>
     </div>
 

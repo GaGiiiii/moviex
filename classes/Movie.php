@@ -54,4 +54,12 @@ class Movie {
 
     return $movies;
   }
+
+  public static function search($searchText){
+    $query = "SELECT * FROM movie WHERE title LIKE '%" . $searchText . "%'";
+    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
+    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $movies;
+  }
 }
