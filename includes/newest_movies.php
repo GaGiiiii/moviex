@@ -7,7 +7,7 @@
 
        <?php foreach ($moviesSortedByDate as $movie) : ?>
          <div class="item mr-4 text-center">
-           <img src="<?php echo $movie['img'] ?? ""; ?>" alt="Banner1">
+           <img src="<?php echo $movie['img'] ?? ""; ?>" alt="Banner1" data-toggle="modal" data-target="#movie-modal<?php echo $movie['id']; ?>">
            <h3 class="text-center movie-title mt-3"><?php echo $movie['title'] ?? "Unknown title"; ?></h3>
            <i class="fas fa-star"></i>
            <i class="fas fa-star"></i>
