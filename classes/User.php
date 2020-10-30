@@ -51,9 +51,10 @@
           $query = "SELECT id, email, username, is_admin FROM user WHERE username = '$data->username' AND password = '$data->password'";
           $result = mysqli_query(Database::getInstance()->getConnection(), $query);
 
-          $user = (object) mysqli_fetch_array($result);
+          $user = mysqli_fetch_array($result); // We can't cast here, because next if will always be true !!!!!!!!!!!!!!!!!!!
 
           if($user){
+              $user = (object) $user;
               self::createSession($user);
 
               return true;
