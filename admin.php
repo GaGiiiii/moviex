@@ -7,7 +7,7 @@ include 'classes/User.php';
 $movies = Movie::getAll();
 shuffle($movies);
 
-if (User::isLoggedIn() && !$_SESSION['user']['is_admin']) {
+if (!User::isLoggedIn() || (User::isLoggedIn() && !$_SESSION['user']['is_admin'])) {
   header("Location: index");
 }
 

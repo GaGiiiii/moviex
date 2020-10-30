@@ -6,6 +6,7 @@
     shuffle($movies);
 
     $moviesSortedByDate = Movie::sortByDate();
+    $moviesSortedByRating = Movie::sortByRating();
 
  ?>
 

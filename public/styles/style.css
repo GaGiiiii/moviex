@@ -282,22 +282,3 @@ body{
   max-width: 700px;
   margin-top: 30vh;
 }
-
-
-
-
-
-
-
-
-
-
-.star-icon-hover:hover{
-  color: #f0ad4e;
-  cursor: pointer;
-
-}
-
-.fa-star-half{
-  margin-left: -1.34rem;
-}

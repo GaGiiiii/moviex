@@ -32,6 +32,17 @@ class Movie {
     return $movies;
   }
 
+  public static function sortByRating() {
+    $query = "SELECT m.*, AVG(r.rating) AS rating FROM movie m
+    JOIN rating r ON m.id = r.movie_id
+    GROUP BY r.movie_id
+    ORDER BY rating DESC";
+    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
+    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $movies;
+  }
+
   public static function update($movieID, $data) {
     $data = (object) $data;
     $query = "UPDATE movie SET title = '$data->movie_title_update', genre = '$data->movie_genre_update', price = '$data->movie_price_update', director = '$data->movie_director_update', actors = '$data->movie_actors_update', length = '$data->movie_length_update', img = '$data->movie_img_update', trailer = '$data->movie_trailer_update', description = '$data->movie_description_update', publish_date = '$data->movie_date_update' WHERE id = $movieID LIMIT 1";

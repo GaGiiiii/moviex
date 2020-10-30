@@ -4,3 +4,5 @@
 4. Modal inside Modal
 5. Flash messages animation
 6. Cancel vote
+7. Clean JS..
+8. Clean code
