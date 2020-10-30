@@ -70,6 +70,7 @@ let searchInput = document.querySelector(".search-input");
 sortButtons.forEach((sortButton) => {
   sortButton.addEventListener('click', (event) => {
     let sortType = sortButton.dataset.sortType;
+    searchInput.value = "";
 
     $.ajax({
       url: 'sort.php',
