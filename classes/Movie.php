@@ -47,4 +47,11 @@ class Movie {
     return $result;
   }
 
+  public static function sort($sortType){
+    $query = "SELECT * FROM movie ORDER BY $sortType DESC";
+    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
+    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $movies;
+  }
 }
