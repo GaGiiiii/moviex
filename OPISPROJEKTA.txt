@@ -1,3 +1,6 @@
+SITE LINK FOR TEST: http://gagi88.epizy.com/projects/moviex/ 
+ADMIN: Username: GaGiiiii Password: gagi
+
 OPIS: 
  - Aplikacija služi za prikazivanje liste filova koji će se prikazivati u bioskopu.
  - Dodavanje filmova, kao i preostale osnovne operacije, Delete, Update, Read, vrši administrator (podešava se ručno u bazi) preko admin panela kome običan korisnik ne može 
