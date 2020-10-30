@@ -1,3 +1,5 @@
+/* ********** GLOBAL ********** */
+
 body{
   overflow-x: hidden;
 }
@@ -37,7 +39,7 @@ body{
 }
 
 
-/* TOP RATED MOVIES */
+/* ********** TOP RATED MOVIES ********** */
 
 #top-rated-movies .owl-carousel img, #movies img{
   height: 180px;
@@ -109,10 +111,7 @@ body{
   font-size: .8rem;
 }
 
-
-
-
-/* MOVIES */
+/* ********** MOVIES ********** */
 
 #movies img{
   width: 100%;
@@ -153,7 +152,7 @@ body{
   }
 }
 
-/* MODAL */
+/* ********** MODALS ********** */
 
 .movie-modal .modal{
   padding: 0 !important;
@@ -205,9 +204,6 @@ body{
   color: #000;
   outline: none;
 }
-
-/* ADMIN */
-
 
 
 /* ********** ADMIN ********** */
@@ -281,4 +277,8 @@ body{
 .delete-movie-modal{
   max-width: 700px;
   margin-top: 30vh;
+}
+
+.star:hover{
+  cursor: pointer;
 }

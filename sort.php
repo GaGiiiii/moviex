@@ -35,25 +35,32 @@ if (isset($_POST['sortType'])) {
           $response .= '<i class="far fa-star"></i>';
         }
       endfor;
+      $response .= '<span class="user-rating" data-movie-id="' . $movie['id'] . '">';
+      if (isset($rating)) $response .= "($rating)";
+      $response .= "</span>";
+
     } else {
+      $rating2 = Rating::get($_SESSION['user']['id'], $movie['id']);
+
       $response .= 'AVG. Rating: <i class="fas fa-star"></i>  <span class="movie-rating" data-movie-id="' . $movie['id'] . '">(' . Movie::getRating($movie['id']) . ')</span>';
       $response .= '<br>
         Your Rating: <br>';
 
-      for ($i = 0; $i < $rating; $i++) :
+      for ($i = 0; $i < $rating2; $i++) :
 
         $response .= '<i class="star fas fa-star star-icon-hover text-warning voted" data-user-id="' . $_SESSION['user']['id'] . '"';
         $response .= ' data-movie-id="' . $movie['id'] . '"';
         $response .= ' data-rating="' . ($i + 1) . '"' . '></i>';
 
       endfor;
-      for ($i = $rating; $i < 5; $i++) :
+      for ($i = $rating2; $i < 5; $i++) :
         $response .= '<i class="star fas fa-star star-icon-hover" data-user-id="' . $_SESSION['user']['id'] . '" data-movie-id="' . $movie['id'] . '" data-rating="' . ($i + 1) . '"></i>';
       endfor;
     }
     $response .= '
       <span class="user-rating" data-movie-id="' . $movie['id'] . '">';
-    if (isset($rating)) $response .= "($rating)</span>
+    if (isset($rating2)) $response .= "($rating2)";
+    $response .= "</span>
       
     </div>
   </div>";

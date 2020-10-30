@@ -1,3 +1,5 @@
+/* ********** BANNER OWL CAROUSEL ********** */
+
 $("#banner-area .owl-carousel").owlCarousel({
   dots: true,
   items: 1,
@@ -8,7 +10,8 @@ $("#banner-area .owl-carousel").owlCarousel({
   smartSpeed: 2000
 });
 
-// TOP SALE OWL CAROUSEL
+/* ********** TOP MOVIES OWL CAROUSEL ********** */
+
 $("#top-rated-movies .owl-carousel").owlCarousel({
   loop: true,
   nav: true,
@@ -26,7 +29,7 @@ $("#top-rated-movies .owl-carousel").owlCarousel({
   }
 });
 
-// ANIMATE LOGO
+/* ********** ANIMATE LOGO ********** */
 
 let logo = document.querySelector('a.navbar-brand');
 
@@ -40,8 +43,7 @@ setInterval(() => {
   }
 }, 1000);
 
-// ADMIN
-
+/* ********** ADMIN ********** */
 
 let cardsAdmin = document.querySelectorAll('.card-admin');
 let invisible = document.querySelectorAll('.invis');
@@ -62,7 +64,7 @@ cardsAdmin.forEach(card => {
   });
 });
 
-// SORT
+/* ********** SORT ********** */
 
 let sortButtons = document.querySelectorAll(".sort-btn");
 let searchInput = document.querySelector(".search-input");
@@ -103,7 +105,7 @@ searchInput.addEventListener('keyup', (event) => {
   })
 });
 
-// STARTS
+/* ********** STARS / RATING ********** */
 
 setEventsForStarts();
 

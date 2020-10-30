@@ -42,21 +42,24 @@
                       <i class="far fa-star"></i>
                     <?php } ?>
                   <?php endfor; ?>
+                  <span class="user-rating" data-movie-id="<?php echo $movie['id']; ?>"><?php if (isset($rating)) echo "($rating)"; ?></span>
                 <?php } else { ?>
                   <!-- AKO JE ULOGOVAN -->
+                  <?php $rating2 = Rating::get($_SESSION['user']['id'], $movie['id']); ?>
+
                   AVG. Rating: <i class="fas fa-star"></i> <span class="movie-rating" data-movie-id="<?php echo $movie['id']; ?>">(<?php echo Movie::getRating($movie['id']); ?>)</span>
                   <br>
                   Your Rating: <br>
                   <?php
-                  for ($i = 0; $i < $rating; $i++) :
+                  for ($i = 0; $i < $rating2; $i++) :
                   ?>
                     <i class="star fas fa-star star-icon-hover text-warning voted" data-user-id="<?php echo $_SESSION['user']['id'] ?? "-1"; ?>" data-movie-id="<?php echo $movie['id']; ?>" data-rating="<?php echo $i + 1; ?>"></i>
                   <?php endfor; ?>
-                  <?php for ($i = $rating; $i < 5; $i++) : ?>
+                  <?php for ($i = $rating2; $i < 5; $i++) : ?>
                     <i class="star fas fa-star star-icon-hover" data-user-id="<?php echo $_SESSION['user']['id'] ?? "-1"; ?>" data-movie-id="<?php echo $movie['id']; ?>" data-rating="<?php echo $i + 1; ?>"></i>
                   <?php endfor; ?>
                 <?php } ?>
-                <span class="user-rating" data-movie-id="<?php echo $movie['id']; ?>"><?php if (isset($rating)) echo "($rating)"; ?></span>
+                <span class="user-rating" data-movie-id="<?php echo $movie['id']; ?>"><?php if (isset($rating2)) echo "($rating2)"; ?></span>
 
               </div>
             </div>

@@ -1,0 +1,38 @@
+OPIS: 
+ - Aplikacija služi za prikazivanje liste filova koji će se prikazivati u bioskopu.
+ - Dodavanje filmova, kao i preostale osnovne operacije, Delete, Update, Read, vrši administrator (podešava se ručno u bazi) preko admin panela kome običan korisnik ne može 
+  da pristupi.
+ - Ulogovani korisnici mogu davati ocene pojedinačnim filmovima
+ - Postoje 3 sekcije za prikazivanje filmova
+ - Prva sekcija prikazuje filmove sortirane po ocenama
+ - Druga sekcija prikazuje sve filmove uz moguću pretragu i sortiranje po dužini trajanja i ceni
+ - Treća sekcija prikazuje najnovije filmove
+
+CLASSES:
+ - U folderu classes nalaze se klase
+ - Database klasa je napisana korišćenjem SINGLETON paterna
+ - Svaka klasa ima odgovarajuće statičke metode koje upravljaju podacima u bazi
+
+PUBLIC:
+ - Ovde se nalaze css fajlovi kao i skripte.
+  
+  SCRIPTJS:
+   - Owl Carousel konfiguracija
+   - Sortiranje, Pretraga, Ocenjivanje
+   - Logo animacija
+   - Admin panel animacija
+
+INDEX.PHP
+ - Glavna stranica aplikacije
+
+ADMIN.PHP
+ - Admin panel za upravljanje filmovima
+
+LOGIN.PHP
+ - Funkcionalnost koja upravlja prijavljivanjem korisnika
+
+REGISTER.PHP
+- Registrovanje novih korisnika
+
+SORT.PHP, SEARCH.PHP, RATE.php
+- Logika vezana za sortiranje filmova, pretragu filmova kao i njihovo ocenjivanje
