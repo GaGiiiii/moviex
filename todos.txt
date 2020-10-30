@@ -3,3 +3,4 @@
 3. Css media, and animations to cheat sheet
 4. Modal inside Modal
 5. Flash messages animation
+6. Cancel vote

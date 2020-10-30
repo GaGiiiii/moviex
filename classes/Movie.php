@@ -62,4 +62,18 @@ class Movie {
 
     return $movies;
   }
+
+  public static function getRating($movieID){
+    $query = "SELECT rating FROM rating WHERE movie_id = $movieID";
+    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
+    $ratings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    $ratingR = 0.0;
+
+    foreach($ratings as $rating){
+      $ratingR += $rating['rating'];
+    }
+
+    return sizeof($ratings) == 0 ? 0.0 : $ratingR / sizeof($ratings);
+  }
 }

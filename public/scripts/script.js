@@ -134,3 +134,114 @@ searchInput.addEventListener('keyup', (event) => {
     }
   })
 });
+
+// STARTS
+
+let stars = document.querySelectorAll(".star");
+let movieRatingSpans = document.querySelectorAll('.movie-rating');
+let userRatingSpans = document.querySelectorAll('.user-rating');
+
+
+stars.forEach((star) => {
+
+  star.addEventListener('mouseover', (event) => {
+    let rating = star.dataset.rating;
+    let movieID = star.dataset.movieId;
+
+    stars.forEach((star2) => {
+      let rating2 = star2.dataset.rating;
+      let movieID2 = star2.dataset.movieId;
+
+      if (movieID2 == movieID) {
+        if (rating2 <= rating) {
+          star2.classList.add('text-warning');
+        } else {
+          star2.classList.remove('text-warning');
+        }
+
+      }
+    });
+  });
+
+  star.addEventListener('mouseout', (event) => {
+    let rating = star.dataset.rating;
+    let movieID = star.dataset.movieId;
+
+    stars.forEach((star2) => {
+      let rating2 = star2.dataset.rating;
+      let movieID2 = star2.dataset.movieId;
+
+      if (movieID2 == movieID) {
+        if (!star2.classList.contains("voted")) {
+          star2.classList.remove('text-warning');
+        } else {
+          star2.classList.add('text-warning');
+        }
+      }
+    });
+  });
+
+  star.addEventListener('click', (event) => {
+    let rating = star.dataset.rating;
+    let movieID = star.dataset.movieId;
+    let userID = star.dataset.userId;
+
+    emptyStarts(movieID);
+
+    stars.forEach((star2) => {
+      let rating2 = star2.dataset.rating;
+      let movieID2 = star2.dataset.movieId;
+
+      if (movieID2 == movieID && rating2 <= rating) {
+
+        star2.classList.add('text-warning');
+        star2.classList.add('voted');
+      }
+    });
+
+    $.ajax({
+      url: 'rate.php',
+      type: 'POST',
+      data: {
+        movieID,
+        userID,
+        rating,
+      },
+      success: (updatedRating) => {
+        movieRatingSpans.forEach((movieRatingSpan) => {
+          let movieIDSpan = movieRatingSpan.dataset.movieId;
+
+          if(movieIDSpan == movieID){
+            movieRatingSpan.innerHTML = updatedRating;
+          }
+        });
+
+        userRatingSpans.forEach((userRatingSpan) => {
+          let movieIDSpan = userRatingSpan.dataset.movieId;
+
+          if(movieIDSpan == movieID){
+            userRatingSpan.innerHTML = rating;
+          }
+        });
+      }
+    })
+
+
+  });
+
+});
+
+function emptyStarts(movieID) {
+  stars.forEach((star) => {
+    let movieID2 = star.dataset.movieId;
+
+    if (movieID2 == movieID) {
+      star.classList.remove('text-warning');
+      star.classList.remove('voted');
+    }
+  });
+}
+
+
+
+

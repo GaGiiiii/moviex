@@ -1,5 +1,6 @@
 <?php 
     include_once 'classes/Movie.php';
+    include_once 'classes/Rating.php';
 
     $movies = Movie::getAll();
     shuffle($movies);
