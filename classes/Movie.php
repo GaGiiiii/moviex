@@ -9,20 +9,23 @@ class Movie {
       $data = (object) $data;
       $query = Database::getInstance()->getConnection()->prepare("INSERT INTO movie (title, img, genre, price, length, trailer, director, actors, publish_date, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       $result = $query->execute([
-        $data->movie_title_update,
-        $data->movie_genre_update,
-        $data->movie_price_update,
-        $data->movie_director_update,
-        $data->movie_length_update,
-        $data->movie_img_update,
-        $data->movie_trailer_update,
-        $data->movie_description_update,
-        $data->movie_date_update,
+        $data->movie_title_add,
+        $data->movie_img_add,
+        $data->movie_genre_add,
+        $data->movie_price_add,
+        $data->movie_length_add,
+        $data->movie_trailer_add,
+        $data->movie_director_add,
+        $data->movie_actors_add,
+        $data->movie_date_add,
+        $data->movie_description_add
       ]);
 
       return $result;
     } catch (PDOException $e) {
       echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+      echo $e->getLine();
+      // echo $e->getFile();
 
       return false;
     }
@@ -83,6 +86,7 @@ class Movie {
         ':genre' => $data->movie_genre_update,
         ':price' => $data->movie_price_update,
         ':director' => $data->movie_director_update,
+        ':actors' => $data->movie_actors_update,
         ':length' => $data->movie_length_update,
         ':img' => $data->movie_img_update,
         ':trailer' => $data->movie_trailer_update,
