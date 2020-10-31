@@ -5,37 +5,45 @@ require_once 'Database.php'; // Pozivanje fajla gde je Database
 class Rating {
 
   public static function add($userID, $movieID, $rating) {
-    $query = "DELETE FROM rating WHERE user_id = $userID AND movie_id = $movieID";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query) or die(mysqli_error(Database::getInstance()->getConnection()));
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("DELETE FROM rating WHERE user_id = :userID AND movie_id = :movieID");
+      $result = $query->execute(array(':userID' => $userID, ':movieID' => $movieID));
 
-    $query = "INSERT INTO rating (user_id, movie_id, rating) VALUES ('$userID', '$movieID', '$rating')";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query) or die(mysqli_error(Database::getInstance()->getConnection()));
+      $query = Database::getInstance()->getConnection()->prepare("INSERT INTO rating (user_id, movie_id, rating) VALUES (?, ?, ?)");
+      $result = $query->execute([
+        $userID,
+        $movieID,
+        $rating
+      ]);
 
-    if ($result) { // Ukoliko je query uspesan pravimo sesiju i vracamo true
-      return true;
+      return $result;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return false;
     }
-
-    return false;
   }
 
-  public static function getAll() {
-    $query = "SELECT * FROM movie";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+  public static function get($userID, $movieID) {
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT rating FROM rating WHERE user_id = :userID AND movie_id = :movieID");
+      $query->execute(array(
+        'userID' => $userID,
+        ':movieID' => $movieID,
+      ));
+      $rating = $query->fetch();      
 
-    return $movies;
-  }
+      if ($rating) {
+        $rating = $rating['rating'];
 
-  public static function get($userID, $movieID){
-    $query = "SELECT rating FROM rating WHERE user_id = $userID AND movie_id = $movieID";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $rating = mysqli_fetch_array($result);
+        return $rating;
+      }
 
-    if($rating){
-      $rating = $rating['rating'];
+      return 0;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return 0;
     }
-
-    return $rating;
   }
-
 }

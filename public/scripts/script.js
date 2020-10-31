@@ -186,7 +186,7 @@ function setEventsForStarts() {
             let movieIDSpan = movieRatingSpan.dataset.movieId;
 
             if (movieIDSpan == movieID) {
-              movieRatingSpan.innerHTML = updatedRating;
+              movieRatingSpan.innerHTML = `(${updatedRating})`;
             }
           });
 
@@ -194,7 +194,7 @@ function setEventsForStarts() {
             let movieIDSpan = userRatingSpan.dataset.movieId;
 
             if (movieIDSpan == movieID) {
-              userRatingSpan.innerHTML = rating;
+              userRatingSpan.innerHTML = `(${rating})`;
             }
           });
         }

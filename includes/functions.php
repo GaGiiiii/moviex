@@ -3,7 +3,7 @@
   require_once 'classes/Database.php';
 
   function clean($input){
-    $input = mysqli_real_escape_string(Database::getInstance()->getConnection(), $input);
+    // $input = mysqli_real_escape_string(Database::getInstance()->getConnection(), $input);
     $input = trim($input);
     $input = str_replace('"', "", $input);
     $input = str_replace("'", "", $input);

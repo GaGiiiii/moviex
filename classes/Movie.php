@@ -5,86 +5,160 @@ require_once 'Database.php'; // Pozivanje fajla gde je Database
 class Movie {
 
   public static function add($data) {
-    $data = (object) $data;
-    $query = "INSERT INTO movie (title, img, genre, price, length, trailer, director, actors, publish_date, description) VALUES ('$data->movie_title_add', '$data->movie_img_add', '$data->movie_genre_add', '$data->movie_price_add', '$data->movie_length_add', '$data->movie_trailer_add', '$data->movie_director_add', '$data->movie_actors_add', '$data->movie_date_add', '$data->movie_description_add')";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query) or die(mysqli_error(Database::getInstance()->getConnection()));
+    try {
+      $data = (object) $data;
+      $query = Database::getInstance()->getConnection()->prepare("INSERT INTO movie (title, img, genre, price, length, trailer, director, actors, publish_date, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $result = $query->execute([
+        $data->movie_title_update,
+        $data->movie_genre_update,
+        $data->movie_price_update,
+        $data->movie_director_update,
+        $data->movie_length_update,
+        $data->movie_img_update,
+        $data->movie_trailer_update,
+        $data->movie_description_update,
+        $data->movie_date_update,
+      ]);
 
-    if ($result) { // Ukoliko je query uspesan pravimo sesiju i vracamo true
-      return true;
+      return $result;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return false;
     }
-
-    return false;
   }
 
   public static function getAll() {
-    $query = "SELECT * FROM movie";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT * FROM movie");
+      $query->execute();
+      $movies = $query->fetchAll();
 
-    return $movies;
+      return $movies;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return [];
+    }
   }
 
   public static function sortByDate() {
-    $query = "SELECT * FROM movie ORDER BY publish_date DESC";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT * FROM movie ORDER BY publish_date DESC");
+      $query->execute();
+      $movies = $query->fetchAll();
 
-    return $movies;
+      return $movies;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return [];
+    }
   }
 
   public static function sortByRating() {
-    $query = "SELECT m.*, AVG(r.rating) AS rating FROM movie m
-    JOIN rating r ON m.id = r.movie_id
-    GROUP BY r.movie_id
-    ORDER BY rating DESC";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT m.*, AVG(r.rating) AS rating FROM movie m
+      JOIN rating r ON m.id = r.movie_id
+      GROUP BY r.movie_id
+      ORDER BY rating DESC");
+      $query->execute();
+      $movies = $query->fetchAll();
 
-    return $movies;
+      return $movies;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return [];
+    }
   }
 
   public static function update($movieID, $data) {
-    $data = (object) $data;
-    $query = "UPDATE movie SET title = '$data->movie_title_update', genre = '$data->movie_genre_update', price = '$data->movie_price_update', director = '$data->movie_director_update', actors = '$data->movie_actors_update', length = '$data->movie_length_update', img = '$data->movie_img_update', trailer = '$data->movie_trailer_update', description = '$data->movie_description_update', publish_date = '$data->movie_date_update' WHERE id = $movieID LIMIT 1";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query) or die(mysqli_error(Database::getInstance()->getConnection()));
+    try {
+      $data = (object) $data;
+      $query = Database::getInstance()->getConnection()->prepare("UPDATE movie SET title = :title, genre = :genre, price = :price, director = :director, actors = :actors, length = :length, img = :img, trailer = :trailer, description = :description, publish_date = :date WHERE id = :id LIMIT 1");
 
-    return $result;
+      $result = $query->execute(array(
+        ':title' => $data->movie_title_update,
+        ':genre' => $data->movie_genre_update,
+        ':price' => $data->movie_price_update,
+        ':director' => $data->movie_director_update,
+        ':length' => $data->movie_length_update,
+        ':img' => $data->movie_img_update,
+        ':trailer' => $data->movie_trailer_update,
+        ':description' => $data->movie_description_update,
+        ':date' => $data->movie_date_update,
+        ':id' => $movieID,
+      ));
+
+      return $result;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return false;
+    }
   }
 
   public static function delete($movieID) {
-    $query = "DELETE FROM movie WHERE id = $movieID LIMIT 1";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("DELETE FROM movie WHERE id = :id LIMIT 1");
+      $result = $query->execute(array(':id' => $movieID));
 
-    return $result;
-  }
+      return $result;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
 
-  public static function sort($sortType){
-    $query = "SELECT * FROM movie ORDER BY $sortType DESC";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    return $movies;
-  }
-
-  public static function search($searchText){
-    $query = "SELECT * FROM movie WHERE title LIKE '%" . $searchText . "%'";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    return $movies;
-  }
-
-  public static function getRating($movieID){
-    $query = "SELECT rating FROM rating WHERE movie_id = $movieID";
-    $result = mysqli_query(Database::getInstance()->getConnection(), $query);
-    $ratings = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    $ratingR = 0.0;
-
-    foreach($ratings as $rating){
-      $ratingR += $rating['rating'];
+      return false;
     }
+  }
 
-    return sizeof($ratings) == 0 ? 0.0 : $ratingR / sizeof($ratings);
+  public static function sort($sortType) {
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT * FROM movie ORDER BY $sortType DESC");
+      $query->execute();
+      $movies = $query->fetchAll();
+
+      return $movies;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return [];
+    }
+  }
+
+  public static function search($searchText) {
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT * FROM movie WHERE title LIKE '%" . $searchText . "%'");
+      $query->execute();
+      $movies = $query->fetchAll();
+
+      return $movies;
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return [];
+    }
+  }
+
+  public static function getRating($movieID) {
+    try {
+      $query = Database::getInstance()->getConnection()->prepare("SELECT rating FROM rating WHERE movie_id = :movieID");
+      $query->execute(array(
+        ':movieID' => $movieID,
+      ));
+      $ratings = $query->fetchAll();
+
+      $ratingR = 0.0;
+
+      foreach ($ratings as $rating) {
+        $ratingR += $rating['rating'];
+      }
+
+      return sizeof($ratings) == 0 ? 0.0 : round($ratingR / sizeof($ratings), 2);
+    } catch (PDOException $e) {
+      echo "<p class='alert mb-0 alert-danger'>PDO EXCEPTION: " . $e->getMessage() . "</p>";
+
+      return 0.0;
+    }
   }
 }

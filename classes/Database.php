@@ -15,7 +15,9 @@
     public $connection = null; // Konekcija
 
     private function __construct(){    
-        $this->connection = mysqli_connect($this->host, $this->username, $this->password, $this->db_name);
+      $this->connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name . ';charset=utf8mb4', $this->username, $this->password);
+      $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      // $this->connection = mysqli_connect($this->host, $this->username, $this->password, $this->db_name);
     }
 
     public function getConnection(){
